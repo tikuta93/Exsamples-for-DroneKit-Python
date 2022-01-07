@@ -152,7 +152,19 @@ def arm_and_takeoff(aTargetAltitude):
             break
         time.sleep(1)
 
+
+# Get Vehicle Home location
+while not vehicle.home_location:
+    cmds = vehicle.commands
+    cmds.download()
+    cmds.wait_ready()
+    if not vehicle.home_location:
+        print("Waiting for home location ...")
         
+# Get a home location.
+print( "Home location: %s" % vehicle.home_location)
+
+
 print('Create a new mission (for current location)')
 adds_star_mission(vehicle.location.global_frame,50)
 
